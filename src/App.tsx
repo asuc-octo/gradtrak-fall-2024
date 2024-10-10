@@ -1,12 +1,12 @@
 import "./App.css";
-import AddDegree from "./components/set-up-page/AddDegree" 
+import Onboarding from "./app/Onboarding/Onboarding" 
 
 function App() {
 
   return (
     <>
       <div>
-        <AddDegree isMajor={true}/>
+        <Onboarding/>
       </div>
     </>
   );
