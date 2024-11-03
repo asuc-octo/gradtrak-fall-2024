@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SetUpPage from "./components/SetUpPage"
-import SemesterBlock from "./components/SemesterBlock"
+import SemesterHome from './SemesterHome';
+// import SemesterBlock from "./components/SemesterBlock"
 
 function App() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   return (
-    <>
-      {/* <SetUpPage></SetUpPage> */}
-      <SemesterBlock selectedYear={2021}></SemesterBlock>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<SetUpPage />} />
+        <Route path="/next" element={<SemesterHome />} />
+      </Routes>
+    </Router>
   );
 }
 
