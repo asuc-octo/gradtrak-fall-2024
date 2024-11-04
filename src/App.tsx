@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./App.css";
+import Kanban from "./app/Kanban/Kanban"
 import SetUpPage from "./components/SetUpPage"
 import SemesterBlock from "./components/SemesterBlock"
 
@@ -8,7 +9,7 @@ function App() {
   return (
     <>
       {/* <SetUpPage></SetUpPage> */}
-      <SemesterBlock selectedYear={2021}></SemesterBlock>
+      <Kanban />
     </>
   );
 }
