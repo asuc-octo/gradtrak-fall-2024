@@ -1,0 +1,58 @@
+.container {
+    width: 500px;
+    flex-direction: column;
+    gap: var(--L, 32px);
+}
+@media (max-width: 600px) {
+    .container {
+        width: 100%; 
+    }
+}
+
+body {
+    background-color: white;
+}
+
+.setup {
+    color: var(--Primary-Text, #000);
+    /* Web UI/Heading/Heading Medium */
+    font-family: "Inter Variable";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 120% */
+    letter-spacing: -0.2px;
+}
+
+.enteryear {
+    color: var(--Secondary-Text, #8A8A8A);
+    /* Web UI/Body/Body Medium */
+    font-family: "Inter Variable";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: -0.1px;
+}
+
+.gradYearbox {
+    background-color: white;
+    border: 1px solid var(--Gray-2, #C7C7C7);
+    color: black;
+}
+
+.yearOptions {
+    color: black;
+    width: 100%;
+}
+
+.gradOptionsBox {
+    background-color: white;
+    width: 206px;
+}
+
+.yearContainer {
+    justify-content: "space-between";
+    width: 100%;
+    align-items: center;
+}
