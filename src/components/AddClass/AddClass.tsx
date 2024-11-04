@@ -25,11 +25,9 @@ type ClassType = {
   
 
 function AddClass({ isOpen, setIsOpen, addClass }: AddClassProps) {
-    const [showMenu, setShowMenu] = useState(false);
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredClasses, setFilteredClasses] = useState<ClassType[]>([]);
-    const [units, setUnits] = useState<number | null>(null);
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const term = event.target.value;
@@ -49,38 +47,7 @@ function AddClass({ isOpen, setIsOpen, addClass }: AddClassProps) {
 
     return (
         <div  
-        // onMouseEnter={() => setShowMenu(true)} 
-        // onMouseLeave={() => setShowMenu(false)}
         >
-            {showMenu && 
-                <DropdownMenu.Root>
-                    <DropdownMenu.Trigger asChild>
-                    <Button className="dropDownBtn">
-                        <DotsHorizontalIcon className="" />
-                    </Button>
-                    </DropdownMenu.Trigger>
-
-                    {/* Dropdown Menu Content */}
-                    <DropdownMenu.Content
-                    className="bg-white shadow-lg rounded-md p-1 border border-gray-200"
-                    sideOffset={5}
-                    align="end"
-                    >
-                    <DropdownMenu.Item
-                        className="px-4 py-2 cursor-pointer hover:bg-gray-100 rounded"
-                        // onClick={onEdit}
-                    >
-                        Edit Course Details
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item
-                        className="px-4 py-2 cursor-pointer hover:bg-gray-100 rounded"
-                        // onClick={() => onDelete(name)}
-                    >
-                        Delete Class
-                    </DropdownMenu.Item>
-                    </DropdownMenu.Content>
-                </DropdownMenu.Root>
-            }
             
             <SearchBar isOpen={isOpen} setIsOpen={setIsOpen} searchTerm={searchTerm} 
             handleSearch={handleSearch} filteredClasses={filteredClasses}

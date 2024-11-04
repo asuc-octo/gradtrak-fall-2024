@@ -19,6 +19,7 @@
   .classContainer {
     display: flex;
     flex-direction: column;
+    position: relative;
     /* justify-content: space-between; */
     padding: 8px;
     width: 100%;
@@ -28,6 +29,10 @@
     text-align: left;
     min-height: 92px;
     
+  }
+
+  .classContainer:hover {
+    background-color: #e0e0e0; /* Grayer background on hover */
   }
 
   .classTitle {
@@ -96,3 +101,37 @@
     align-items: flex-start;
 }
 
+.three-dot-menu {
+  border-radius: var(--XXS, 4px);
+  background: var(--White, #FFF);
+  /* highdrop */
+  box-shadow: 0px 8px 12px 0px rgba(60, 66, 87, 0.15), 0px 0px 1px 0px rgba(0, 0, 0, 0.30);
+  padding: var(--XS, 8px);  
+}
+
+.dropDownBtn {
+  width: 32px;
+  height: 16px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+  opacity: 0; /* Initially hidden */
+  /* transition: opacity 0.3s; Smooth transition */
+}
+
+.classContainer:hover .dropDownBtn {
+  opacity: 1; /* Show on hover */
+}
+
+.menu-item {
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color: #bfdbfe;
+}

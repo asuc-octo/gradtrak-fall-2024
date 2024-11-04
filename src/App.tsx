@@ -6,7 +6,6 @@ import SemesterHome from './SemesterHome';
 // import SemesterBlock from "./components/SemesterBlock"
 
 function App() {
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
   return (
     <Router>
       <Routes>

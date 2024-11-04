@@ -21,12 +21,9 @@ function SemesterHome() {
     <Flex direction="column" gap="32px">
       <h3 className='semester-title'>Semesters</h3>
       <Flex direction="row" gap="12px" className='semester-layout'>
-        {/* <SemesterBlock selectedYear={startYear}></SemesterBlock>
-        <SemesterBlock selectedYear={gradYear}></SemesterBlock> */}
         <SemesterBlock selectedSemester={"Miscellaneous"} selectedYear={""}></SemesterBlock>
         {years.map((year) => (
             <Flex key={year} className="year-element" direction="row" gap="12px">
-              {/* Replace with the element you want to render */}
               <SemesterBlock selectedSemester={"Fall"} selectedYear={year}></SemesterBlock>
               <SemesterBlock selectedSemester={"Spring"} selectedYear={year}></SemesterBlock>
               {summerCheck &&
