@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import Select from 'react-select'
 import { Separator, Flex } from "@radix-ui/themes";
 import MAJORS from './majors.json';
@@ -18,6 +19,7 @@ type AddDegreeProps = {
 };
 
 export default function AddDegree({ isMajor }: AddDegreeProps) {
+    const navigate = useNavigate();
     const optionType = isMajor ? "Major" : "Minor";
     const [selectedDegree, setSelectedDegree] = useState<DegreeOption | null>(null);
     const [selectedDegreeList, setSelectedDegreeList] = useState<DegreeOption[]>([]);
@@ -38,6 +40,10 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
         setSelectedDegreeList(selectedDegreeList.filter((degree) => degree.value !== degreeToRemove.value));
     };
 
+    const handleConfirmClick = () => {
+        navigate('/next', { state : {  } })
+    };
+
     const DegreeSelect = () => (
         <Select 
             className="degree-select" 
@@ -52,7 +58,7 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
 
     return (
         <div>
-            <Flex className="container">
+            <Flex className="degree-container">
                 <Flex className="header-container" align="center">
                     <h1>Add {optionType}s</h1>
                     <p className="secondary-text">
@@ -82,7 +88,7 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
                 </Flex>
                 <Flex gap="10px" width="100%">
                     <button className="secondary">Skip</button>
-                    <button className="primary">Confirm</button>
+                    <button className="primary"  onClick={handleConfirmClick}>Confirm</button>
                 </Flex>
             </Flex>
         </div>

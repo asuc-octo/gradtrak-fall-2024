@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
 import "./App.css";
-import Kanban from "./app/Kanban/Kanban";
-import Onboarding from "./app/Onboarding/Onboarding";
-import SetUpPage from "./components/SetUpPage";
-import SemesterBlock from "./components/SemesterBlock";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SetUpPage from "./components/SetUpPage"
+import AddDegree from "./components/AddDegree/AddDegree";
+import SemesterHome from './SemesterHome';
 
 function App() {
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
   return (
-    <>
-      {/* <SetUpPage></SetUpPage> */}
-      <Onboarding />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<SetUpPage />} />
+        <Route path="/add-major" element={<AddDegree isMajor={true}/>} />
+        <Route path="/add-minor" element={<AddDegree isMajor={false}/>} />
+        <Route path="/next" element={<SemesterHome />} />
+      </Routes>
+    </Router>
   );
 }
 

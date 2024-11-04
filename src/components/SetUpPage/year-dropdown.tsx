@@ -6,36 +6,41 @@ import { ChevronDownIcon } from '@radix-ui/react-icons';
 
 import YearsData from './years.json';
 
-function YearDropdown() {
+interface YearDropdownProps {
+  id: string;
+  onSelectYear: (id: string, year: string) => void;
+};
+
+function YearDropdown({id, onSelectYear}: YearDropdownProps) {
   const [gradYear, setGradYear] = useState<string | null>(null);
 	const { years } = YearsData;
 
 	const handleGradSelect = (year: string) => {
 		setGradYear(year);
+    onSelectYear(id, year)
 	  };
 
     return (
-        <DropdownMenu.Root>
-		<DropdownMenu.Trigger className='gradYearbox'>
-		{gradYear ? gradYear : 'Select year'}
-        <ChevronDownIcon />
-		</DropdownMenu.Trigger>
+      <DropdownMenu.Root>
+          <DropdownMenu.Trigger className='gradYearbox'>
+          {gradYear ? gradYear : 'Select year'}
+              <ChevronDownIcon />
+          </DropdownMenu.Trigger>
 
-		<DropdownMenu.Portal>
-        
-		<DropdownMenu.Content className="gradOptionsBox">
-          {years.map((year) => (
-            <DropdownMenu.Item
-              key={year}
-              onSelect={() => handleGradSelect(year)}
-              className="yearOptions"
-            >
-              {year}
-            </DropdownMenu.Item>
-          ))}
-        </DropdownMenu.Content>
-		</DropdownMenu.Portal>
-	  </DropdownMenu.Root>
+          <DropdownMenu.Portal>
+            <DropdownMenu.Content className="gradOptionsBox">
+                  {years.map((year) => (
+                    <DropdownMenu.Item
+                      key={year}
+                      onSelect={() => handleGradSelect(year)}
+                      className="yearOptions"
+                    >
+                      {year}
+                    </DropdownMenu.Item>
+                  ))}
+              </DropdownMenu.Content>
+          </DropdownMenu.Portal>
+	    </DropdownMenu.Root>
     )
 }
 

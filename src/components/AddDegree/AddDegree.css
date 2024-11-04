@@ -3,7 +3,7 @@
     margin: 0;
 }
 
-.container {
+.degree-container {
     width: 500px;
     flex-direction: column;
     gap: var(--L, 32px);
