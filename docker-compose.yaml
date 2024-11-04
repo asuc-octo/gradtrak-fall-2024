@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  backend:
+    image: chengmingli/berkeleytime-test-backend
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongodb
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/BerkeleytimeTest
+
+  mongodb:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

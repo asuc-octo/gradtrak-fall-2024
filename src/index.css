@@ -50,19 +50,20 @@
   
   }
 
+  p {
+    font-size: 0.875em; 
+  }
+
   .primary-text {
     font-size: 0.875em; 
     font-style: normal;
     font-weight: 400;
-   
   }
 
   .secondary-text {
     color: var(--Secondary-Text, #8A8A8A);
-    font-size: 0.875em; 
     font-style: normal;
     font-weight: 400;
-   
   }
   
   button {
@@ -72,7 +73,7 @@
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background-color: #FFF;
     cursor: pointer;
     transition: border-color 0.25s;
   }

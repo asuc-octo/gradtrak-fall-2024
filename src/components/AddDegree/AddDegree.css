@@ -1,3 +1,8 @@
+#root {
+    padding: 0;
+    margin: 0;
+}
+
 .container {
     width: 500px;
     flex-direction: column;
@@ -8,6 +13,10 @@
         width: 100%; 
     }
 }
+
+/* -------------------*/
+/* -- Button Styles --*/
+/* ------------------ */
 
 .primary {
     display: flex;
@@ -50,6 +59,10 @@
     align-content: center;
     gap: 16px;
 }
+
+/* ------------------*/
+/* ------ MISC ------*/
+/* ----------------- */
 
 .degree-select {
     width: 100%;

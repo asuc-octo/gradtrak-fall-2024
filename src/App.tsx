@@ -1,13 +1,11 @@
 import "./App.css";
-import Onboarding from "./app/Onboarding/Onboarding" 
+import Kanban from "./app/Kanban/Kanban" 
 
 function App() {
 
   return (
     <>
-      <div>
-        <Onboarding/>
-      </div>
+      <Kanban/>
     </>
   );
 }

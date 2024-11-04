@@ -53,19 +53,19 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
     return (
         <div>
             <Flex className="container">
-                <Flex className="header-container">
+                <Flex className="header-container" align="center">
                     <h1>Add {optionType}s</h1>
                     <p className="secondary-text">
                         Search for your {optionType.toLowerCase()} and add it to Gradtrak to list specific requirements.
                     </p>
                 </Flex>
-                <Flex direction="column" align="start" gap="16px">
+                <Flex direction="column" align="start" gap="16px" width="100%">
                     <DegreeSelect/>
                     <a>Don't see your {optionType.toLowerCase()}?</a>
                     <button className="secondary" onClick={handleAddDegree}>Add</button>
                 </Flex>
-                <Separator size="4" />
-                <Flex direction="column" align="start" gap="16px">
+                <Separator size="4"/>
+                <Flex direction="column" align="start" gap="16px"  width="100%">
                     <h2>Selected {optionType}s</h2>
                     {selectedDegreeList.length === 0 ? (
                         <p className="secondary-text">None Selected</p>
@@ -80,7 +80,7 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
                         </div>
                     )}
                 </Flex>
-                <Flex gap="10px">
+                <Flex gap="10px" width="100%">
                     <button className="secondary">Skip</button>
                     <button className="primary">Confirm</button>
                 </Flex>
