@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Select from 'react-select'
 import { Separator, Flex } from "@radix-ui/themes";
 import MAJORS from './majors.json';
@@ -20,6 +21,8 @@ type AddDegreeProps = {
 
 export default function AddDegree({ isMajor }: AddDegreeProps) {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { startYear, gradYear, summerCheck } = location.state || {};
     const optionType = isMajor ? "Major" : "Minor";
     const [selectedDegree, setSelectedDegree] = useState<DegreeOption | null>(null);
     const [selectedDegreeList, setSelectedDegreeList] = useState<DegreeOption[]>([]);
@@ -41,7 +44,7 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
     };
 
     const handleConfirmClick = () => {
-        navigate('/next', { state : {  } })
+        navigate('/next', { state : { startYear, gradYear, summerCheck }  })
     };
 
     const DegreeSelect = () => (

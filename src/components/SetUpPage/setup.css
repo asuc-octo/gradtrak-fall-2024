@@ -1,8 +1,16 @@
+.radix-themes {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+}
 .setup-container {
-    width: 500px;
-    /* flex-direction: column;
-    gap: var(--L, 32px); */
+    width: 420px;
+    margin-left: 500px;
     background-color: white !important;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
 }
 @media (max-width: 600px) {
     .container {
@@ -12,11 +20,11 @@
 
 body {
     background-color: white;
+    /* display: inline !important; */
 }
 
 .setup {
     color: var(--Primary-Text, #000);
-    /* Web UI/Heading/Heading Medium */
     font-family: "Inter Variable";
     font-size: 20px;
     font-style: normal;
