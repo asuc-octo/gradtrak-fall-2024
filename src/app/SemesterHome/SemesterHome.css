@@ -1,6 +1,13 @@
 /* .body {
     display: block !important;
 } */
+.semester-home-container {
+    display: flex;
+    direction: row;
+    height: 100vh;
+    width: 100vh;
+}
+
 .content {
     display: flex;
     flex: 1;

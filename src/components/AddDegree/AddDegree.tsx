@@ -44,7 +44,7 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
     };
 
     const handleConfirmClick = () => {
-        navigate('/next', { state : { startYear, gradYear, summerCheck }  })
+        navigate('/semester-home', { state : { startYear, gradYear, summerCheck }  })
     };
 
     const DegreeSelect = () => (

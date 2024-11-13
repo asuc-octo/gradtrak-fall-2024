@@ -32,8 +32,10 @@ function SetUpPage() {
   return (
     <Flex className="setup-container" direction="column" gap="32px" width="100%" align="center">
       <Flex direction="column" gap="8px" width="100%" align="center">
-        <Text className="setup">Set Up</Text>
-        <Text className="enteryear">Enter your start year and graduation year</Text>
+        <h1>Set Up</h1>
+        <p className="secondary-text">
+          Enter your start year and graduation year
+        </p>
       </Flex>
 
       <Flex className= "yearContainer" direction="row" gap="16px" align="center">
@@ -55,7 +57,7 @@ function SetUpPage() {
           Include Summer Semesters?
         </Flex>
       </Text>
-			<Button className='next-btn' onClick={handleNextClick}>Next</Button>
+      <button className="primary"  onClick={handleNextClick}>Next</button>
 		</Flex>
   );
 }

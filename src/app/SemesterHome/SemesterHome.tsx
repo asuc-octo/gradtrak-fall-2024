@@ -1,9 +1,9 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import SemesterBlock from "./components/SemesterBlock"
+import SemesterBlock from "../../components/SemesterBlock"
 import { Flex } from '@radix-ui/themes';
-import SidePanel from "./components/SidePanel/SidePanel" 
-import { requirements } from "./components/SidePanel/types"
+import SidePanel from "../../components/SidePanel/SidePanel" 
+import { requirements } from "../../components/SidePanel/types"
 import "./SemesterHome.css"
 
 
