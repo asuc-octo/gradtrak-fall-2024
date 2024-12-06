@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import "@radix-ui/themes/styles.css";
 import "./setup.css"
 import { Flex, Text, Button, Checkbox } from "@radix-ui/themes";
 import YearDropdown from "./year-dropdown";
+import DotsIndicator from './dots-indicator';
 
 
 function SetUpPage() {
@@ -56,6 +56,7 @@ function SetUpPage() {
         </Flex>
       </Text>
 			<Button className='next-btn' onClick={handleNextClick}>Next</Button>
+      <DotsIndicator currentPage={0} totalPages={3} />
 		</Flex>
   );
 }

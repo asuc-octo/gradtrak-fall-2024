@@ -5,6 +5,7 @@ import Select from 'react-select'
 import { Separator, Flex } from "@radix-ui/themes";
 import MAJORS from './majors.json';
 import "./AddDegree.css";
+import DotsIndicator from '../SetUpPage/dots-indicator';
 
 type DegreeOption = {
     label: string;
@@ -26,6 +27,8 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
     const optionType = isMajor ? "Major" : "Minor";
     const [selectedDegree, setSelectedDegree] = useState<DegreeOption | null>(null);
     const [selectedDegreeList, setSelectedDegreeList] = useState<DegreeOption[]>([]);
+    const [selectedMinorList, setSelectedMinorList] = useState<DegreeOption[]>([]);
+
 
     // Hardcoded majors for now
 	const degreeOptions = MAJORS.map((degree) => ({
@@ -38,13 +41,27 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
             setSelectedDegreeList([...selectedDegreeList, selectedDegree]);
         }
     };
+
+    const handleAddMinor = () => {
+        if (selectedDegree && !selectedDegreeList.some((degree) => degree.value === selectedDegree.value)) {
+            setSelectedMinorList([...selectedMinorList, selectedDegree]);
+        }
+    };
     
     const handleRemoveDegree = (degreeToRemove: DegreeOption) => {
         setSelectedDegreeList(selectedDegreeList.filter((degree) => degree.value !== degreeToRemove.value));
     };
 
+    const handleRemoveMinor = (degreeToRemove: DegreeOption) => {
+        setSelectedMinorList(selectedMinorList.filter((degree) => degree.value !== degreeToRemove.value));
+    };
+
     const handleConfirmClick = () => {
-        navigate('/next', { state : { startYear, gradYear, summerCheck }  })
+        if (isMajor) {
+            navigate("/add-minor", { state : { startYear, gradYear, summerCheck, selectedDegreeList, selectedMinorList }  })
+        } else {
+            navigate("/next", { state : { startYear, gradYear, summerCheck, selectedDegreeList, selectedMinorList }  })
+        }
     };
 
     const DegreeSelect = () => (
@@ -71,7 +88,10 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
                 <Flex direction="column" align="start" gap="16px" width="100%">
                     <DegreeSelect/>
                     <a>Don't see your {optionType.toLowerCase()}?</a>
-                    <button className="secondary" onClick={handleAddDegree}>Add</button>
+                    {isMajor && 
+                    <button className="secondary" onClick={handleAddDegree}>Add</button>}
+                    {!isMajor && 
+                    <button className="secondary" onClick={handleAddMinor}>Add</button>}
                 </Flex>
                 <Separator size="4"/>
                 <Flex direction="column" align="start" gap="16px"  width="100%">
@@ -80,10 +100,16 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
                         <p className="secondary-text">None Selected</p>
                     ) : (
                         <div className="selected-degree-list" id={`${optionType.toLowerCase()}s-list`}>
-                            {selectedDegreeList.map((degree) => (
+                            {isMajor && selectedDegreeList.map((degree) => (
                                 <div key={degree.value} className="degree-chip">
                                     {degree.label}
                                     <span className="delete-icon" onClick={() => handleRemoveDegree(degree)}>✕</span>
+                                </div>
+                            ))}
+                            {!isMajor && selectedMinorList.map((degree) => (
+                                <div key={degree.value} className="degree-chip">
+                                    {degree.label}
+                                    <span className="delete-icon" onClick={() => handleRemoveMinor(degree)}>✕</span>
                                 </div>
                             ))}
                         </div>
@@ -93,6 +119,8 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
                     <button className="secondary">Skip</button>
                     <button className="primary"  onClick={handleConfirmClick}>Confirm</button>
                 </Flex>
+                {isMajor && <DotsIndicator currentPage={1} totalPages={3} />}
+                {!isMajor && <DotsIndicator currentPage={2} totalPages={3} />}
             </Flex>
         </div>
     );

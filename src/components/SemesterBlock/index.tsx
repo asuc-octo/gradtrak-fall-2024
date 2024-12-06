@@ -5,6 +5,7 @@ import "./semesterblock.css"
 import AddClass from "../AddClass/AddClass";
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { DotsHorizontalIcon, TrashIcon, FileTextIcon } from '@radix-ui/react-icons';
+import CustomClass from "../CustomClass/custom-class";
 
 
 interface SemesterYearProps  {
@@ -23,6 +24,12 @@ function SemesterBlock({ selectedYear, selectedSemester }: SemesterYearProps) {
   const [isAddClassOpen, setIsAddClassOpen] = useState(false);
   const [selectedClasses, setSelectedClasses] = useState<ClassType[]>([]);
   const [totalUnits, setTotalUnits] = useState(0);
+  const [isCustomClassOpen, setIsCustomClassOpen] = useState(false);
+
+  const openCustomClass = () => setIsCustomClassOpen(true);
+  const closeCustomClass = () => {
+    setIsCustomClassOpen(false)
+  };
 
   const handleDeleteClass = (indexToDelete: number) => {
     const deletedClassUnits = selectedClasses[indexToDelete].units;
@@ -84,7 +91,7 @@ function SemesterBlock({ selectedYear, selectedSemester }: SemesterYearProps) {
         {/* </div> */}
 
       {/* Dialog Component */}
-      <AddClass isOpen={isAddClassOpen} setIsOpen={setIsAddClassOpen} addClass={addClass} />
+      <AddClass isOpen={isAddClassOpen} setIsOpen={setIsAddClassOpen} addClass={addClass} handleOnConfirm={(cls) => {addClass(cls);}}/>
 
       <Button onClick={() => setIsAddClassOpen(true)} className="add-button">
           + Add Class

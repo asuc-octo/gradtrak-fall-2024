@@ -1,19 +1,32 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import SemesterBlock from "./components/SemesterBlock"
-import { Flex } from '@radix-ui/themes';
-import SidePanel from "./components/SidePanel/SidePanel" 
-import { requirements } from "./components/SidePanel/types"
+import SemesterBlock from "../../../components/SemesterBlock"
+import { Flex, Button } from '@radix-ui/themes';
+import SidePanel from "../../../components/SidePanel/SidePanel" 
+import { requirements } from "../../../components/SidePanel/types"
 import "./SemesterHome.css"
 
+type DegreeOption = {
+  label: string;
+  value: string;
+};
 
 function SemesterHome() {
   const location = useLocation();
-  const { startYear, gradYear, summerCheck } = location.state || {};
+  const state = location.state as {
+    startYear: string;
+    gradYear: string;
+    summerCheck: boolean;
+    selectedDegreeList: DegreeOption[];
+};
+  const { startYear, gradYear, summerCheck, selectedDegreeList } = state;
+  const selectedDegreeStrings: string[] = selectedDegreeList.map((degree) => degree.value);
+
+
   // Pretend this is the queried data
   const user = {
     "name": "Khankamol Chor Kongrukgreatiyos",
-    "majors": ["Computer Science BA", "Data Science"],
+    "majors": selectedDegreeStrings,
     "minors": []
   }
 
@@ -27,7 +40,7 @@ function SemesterHome() {
 
   return (
     <>
-      <Flex direction="row" height="100vh">
+      <Flex direction="row" height="100vh" className='semester-home'>
         {/* Side panel */}
           <SidePanel 
             name={user.name} 
@@ -46,7 +59,6 @@ function SemesterHome() {
               <SemesterBlock selectedSemester={"Miscellaneous"} selectedYear={""}></SemesterBlock>
                 {years.map((year) => (
                     <Flex key={year} className="year-element" direction="row" gap="12px">
-                      {/* Replace with the element you want to render */}
                       <SemesterBlock selectedSemester={"Fall"} selectedYear={year}></SemesterBlock>
                       <SemesterBlock selectedSemester={"Spring"} selectedYear={year}></SemesterBlock>
                       {summerCheck &&

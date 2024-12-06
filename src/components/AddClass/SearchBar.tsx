@@ -1,5 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import "./addclass.css"
+import React, { useState } from 'react';
+import { Button } from "@radix-ui/themes";
+import CustomClass from "../CustomClass/custom-class";
+import "./addclass.css";
 
 interface SearchBarProps  {
     isOpen: boolean;
@@ -8,6 +11,7 @@ interface SearchBarProps  {
     handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
     filteredClasses: ClassType[];
     handleSelectClass: (cls: ClassType) => void;
+    handleOnConfirm: (cls: ClassType) => void;
 
 };
 
@@ -17,7 +21,15 @@ type ClassType = {
     units: number;
   };
 
-function SearchBar({isOpen, setIsOpen, searchTerm, handleSearch, filteredClasses, handleSelectClass}: SearchBarProps) {
+function SearchBar({isOpen, setIsOpen, searchTerm, handleSearch, filteredClasses, handleSelectClass, handleOnConfirm}: SearchBarProps) {
+    const [isCustomClassOpen, setIsCustomClassOpen] = useState(false);
+
+    const openCustomClass = () => setIsCustomClassOpen(true);
+    const closeCustomClass = () => {
+      setIsOpen(false)  
+      setIsCustomClassOpen(false)
+    };
+
     return (
         <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
                         <Dialog.Content className="searchContent">
@@ -30,7 +42,7 @@ function SearchBar({isOpen, setIsOpen, searchTerm, handleSearch, filteredClasses
                             />
                             
                             {/* Dropdown for suggestions */}
-                            {filteredClasses.length > 0 && (
+                            {(
                                 <ul className="suggestion-list">
                                 {filteredClasses.map((cls) => (
                                     <li
@@ -41,9 +53,19 @@ function SearchBar({isOpen, setIsOpen, searchTerm, handleSearch, filteredClasses
                                     {cls.name} - {cls.units} units
                                     </li>
                                 ))}
+                                <li key="default" className='suggestion-item'>
+                                    <Button className='add-custom-btn' onClick={openCustomClass}>
+                                        + Add Custom Class
+                                    </Button>
+                                </li>
                                 </ul>
                             )}
                         </Dialog.Content>
+                        <CustomClass 
+                            open={isCustomClassOpen} 
+                            onClose={closeCustomClass} 
+                            onConfirm={handleOnConfirm}>
+                        </CustomClass>
             </Dialog.Root>
     )
 }
