@@ -1,9 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import SemesterBlock from "../../../components/SemesterBlock"
-import { Flex, Button } from '@radix-ui/themes';
-import SidePanel from "../../../components/SidePanel/SidePanel" 
-import { requirements } from "../../../components/SidePanel/types"
+import SemesterBlock from "../../components/SemesterBlock"
+import { Flex } from '@radix-ui/themes';
+import SidePanel from "../../components/SidePanel/SidePanel" 
 import "./SemesterHome.css"
 
 type DegreeOption = {
@@ -59,7 +58,6 @@ function SemesterHome() {
             totalUnits={totalUnits}
             transferUnits={40}
             pnpTotal={15}
-            requirements={requirements}
           />
 
         {/* Page body */}

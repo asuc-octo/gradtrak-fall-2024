@@ -1,9 +1,7 @@
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SetUpPage from "./components/SetUpPage"
 import AddDegree from "./components/AddDegree/AddDegree";
-import SemesterHome from './app/Onboarding/SemesterHome/SemesterHome';
-import Header from "./components/Header/header";
+import SemesterHome from './app/SemesterHome/SemesterHome';
 
 function App() {
   return (

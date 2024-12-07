@@ -7,6 +7,7 @@ import MAJORS from './majors.json';
 import "./AddDegree.css";
 import DotsIndicator from '../SetUpPage/dots-indicator';
 
+
 type DegreeOption = {
     label: string;
     value: string;

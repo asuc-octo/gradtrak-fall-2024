@@ -1,8 +1,9 @@
 import { Separator } from "@radix-ui/themes";
-import { RequirementCategory } from "./types"
-import { Check, NavArrowDown } from 'iconoir-react'
+import RequirementsAccordion from "../RequirementsAccordion/RequirementsAccordion";
 import "./SidePanel.css";
 
+// TODO: function checkRequirementFulfilled()
+  
 interface SidePanelProps {
     name: string;
     majors: string[];
@@ -10,10 +11,10 @@ interface SidePanelProps {
     totalUnits: number;
     transferUnits: number;
     pnpTotal: number;
-    requirements: RequirementCategory;
 }
 
-export default function SidePanel({ name, majors, minors, totalUnits, transferUnits, pnpTotal, requirements}: SidePanelProps) {
+export default function SidePanel({ name, majors, minors, totalUnits, transferUnits, pnpTotal}: SidePanelProps) {
+
     const UserInfo = (
         <div className="sidepanel-container">
             <div className="sidepanel-header-container">
@@ -21,7 +22,7 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
                     <h2 className="truncate">{name}</h2>
                     <h2 className="secondary-text">Graduation Plan</h2>
                 </div>
-                <button className="secondary">Edit</button>
+                <button className="panel-secondary">Edit</button>
             </div>
             <div className="user-info-grid">
                 {/* Majors */}
@@ -54,28 +55,6 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
             </div>       
         </div>
     );
-
-    // TODO: Add functionality
-    const Requirement = (title: string, requirements: string[]) => (
-        <div className="sidepanel-container accordion">
-            <div className="sidepanel-header-container">
-                <div className="requirement-header">
-                    {title}
-                </div>
-                <NavArrowDown className="icon"/>
-            </div>
-            
-            <div className="accordion-contents">
-                {requirements.map((req, index) => (
-                     <div className="accordion-item">
-                        <div className="icon green"></div>
-                        <p key={index}>{req}</p>
-                    </div>
-                    ))}
-            </div>
-            
-        </div>
-    )
 
     const MajorRequirements = (
         <div>
@@ -141,15 +120,9 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
             <Separator size="4" /> 
             {MinorRequirements}
             <Separator size="4" />         
-            {Requirement("University of California", 
-                ["Entry-Level Writing", "American History", "American Institutions", "American Cultures"])}
-            <Separator size="4" />  
-            {Requirement("Essential Skills",
-                ["R&C Part A", "R&C Part B", "Quantitative Reasoning", "Foreign Language"])}
-            <Separator size="4" />  
-            {Requirement("Breadth Requirements",
-                ["Arts & Literature", "Biological Science", "Historical Studies", "International Studies", 
-                "Social & Behavioral Sciences", "Physical Science", "Philosophy & Values"])}
+            <RequirementsAccordion title={"University of California"}/>
+            <Separator size="4" />     
+            <RequirementsAccordion title={"Breadth Requirements"}/>
             <Separator size="4" />    
         </div>
    )
