@@ -26,7 +26,7 @@ function SemesterHome() {
 
   // Pretend this is the queried data
   const user = {
-    "name": "Khankamol Chor Kongrukgreatiyos",
+    "name": "Yuna Kim",
     "majors": selectedDegreeStrings,
     "minors": selectedMinorStrings
   }
