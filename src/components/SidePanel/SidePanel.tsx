@@ -22,7 +22,7 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
                     <h2 className="truncate">{name}</h2>
                     <h2 className="secondary-text">Graduation Plan</h2>
                 </div>
-                <button className="secondary">Edit</button>
+                <button className="panel-secondary">Edit</button>
             </div>
             <div className="user-info-grid">
                 {/* Majors */}
@@ -56,10 +56,70 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
         </div>
     );
 
+    const MajorRequirements = (
+        <div>
+            {majors.map((major, index) => (
+                <div className="sidepanel-container accordion">
+                    <div className="sidepanel-header-container">
+                        <div className="user-header">
+                            <h2 className="truncate" key={index}>{major}</h2>
+                        </div>
+                    </div>
+                    <div className="accordion-contents">
+                    <div className="accordion-item ">
+                        <p className="units-title">Upper Division Units: </p>
+                        <p className="units-comp">0/8</p>
+                    </div>
+                    <div className="accordion-item ">
+                        <p className="units-title">Lower Division Units: </p>
+                        <p className="units-comp">0/8</p>
+                    </div>
+                    <div className="accordion-item ">
+                        <p className="units-title">Elective Units: </p>
+                        <p className="units-comp">0/7</p>
+                    </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    )
+
+    const MinorRequirements = (
+        <div>
+            {minors.map((minor, index) => (
+                <div className="sidepanel-container accordion">
+                    <div className="sidepanel-header-container">
+                        <div className="user-header">
+                            <h2 className="truncate" key={index}>{minor}</h2>
+                        </div>
+                    </div>
+                    <div className="accordion-contents">
+                    <div className="accordion-item ">
+                        <p className="units-title">Upper Division Units: </p>
+                        <p className="units-comp">0/8</p>
+                    </div>
+                    <div className="accordion-item ">
+                        <p className="units-title">Lower Division Units: </p>
+                        <p className="units-comp">0/8</p>
+                    </div>
+                    <div className="accordion-item ">
+                        <p className="units-title">Elective Units: </p>
+                        <p className="units-comp">0/7</p>
+                    </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    )
+
     return (
         <div className='sidepanel'>
             {UserInfo}
-            <Separator size="4" />       
+            <Separator size="4" /> 
+            {MajorRequirements}
+            <Separator size="4" /> 
+            {MinorRequirements}
+            <Separator size="4" />         
             <RequirementsAccordion title={"University of California"}/>
             <Separator size="4" />     
             <RequirementsAccordion title={"Breadth Requirements"}/>

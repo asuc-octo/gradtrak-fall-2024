@@ -40,12 +40,14 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
     const handleAddDegree = () => {
         if (selectedDegree && !selectedDegreeList.some((degree) => degree.value === selectedDegree.value)) {
             setSelectedDegreeList([...selectedDegreeList, selectedDegree]);
+            setSelectedDegree(null);
         }
     };
 
     const handleAddMinor = () => {
-        if (selectedDegree && !selectedDegreeList.some((degree) => degree.value === selectedDegree.value)) {
+        if (selectedDegree && !selectedMinorList.some((degree) => degree.value === selectedDegree.value)) {
             setSelectedMinorList([...selectedMinorList, selectedDegree]);
+            setSelectedDegree(null);
         }
     };
     
@@ -73,7 +75,7 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
             isClearable={true}
             placeholder={`Search for a ${optionType.toLowerCase()}...`}
             value={selectedDegree}
-            onChange={(option) => setSelectedDegree(option as DegreeOption)} 
+            onChange={(option) => setSelectedDegree(option as DegreeOption | null)} 
         />
       )
 
@@ -97,7 +99,7 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
                 <Separator size="4"/>
                 <Flex direction="column" align="start" gap="16px"  width="100%">
                     <h2>Selected {optionType}s</h2>
-                    {selectedDegreeList.length === 0 ? (
+                    {(selectedDegreeList.length === 0 && isMajor) || (selectedMinorList.length === 0 && !isMajor) ? (
                         <p className="secondary-text">None Selected</p>
                     ) : (
                         <div className="selected-degree-list" id={`${optionType.toLowerCase()}s-list`}>

@@ -1,8 +1,4 @@
 .radix-themes {
-    /* display: flex !important; */
-    /* justify-content: center;
-    align-items: center;
-    place-items: center; */
     margin-left: auto;
     margin-right: auto;
 
@@ -24,7 +20,6 @@
     justify-content: center; /* Center content within the container vertically */
     align-items: center; /* Center content horizontally */
 }
-
 
 
 body {
