@@ -1,8 +1,9 @@
 import { Separator } from "@radix-ui/themes";
-import { RequirementCategory } from "./types"
-import { Check, NavArrowDown } from 'iconoir-react'
+import RequirementsAccordion from "../RequirementsAccordion/RequirementsAccordion";
 import "./SidePanel.css";
 
+// TODO: function checkRequirementFulfilled()
+  
 interface SidePanelProps {
     name: string;
     majors: string[];
@@ -10,10 +11,10 @@ interface SidePanelProps {
     totalUnits: number;
     transferUnits: number;
     pnpTotal: number;
-    requirements: RequirementCategory;
 }
 
-export default function SidePanel({ name, majors, minors, totalUnits, transferUnits, pnpTotal, requirements}: SidePanelProps) {
+export default function SidePanel({ name, majors, minors, totalUnits, transferUnits, pnpTotal}: SidePanelProps) {
+
     const UserInfo = (
         <div className="sidepanel-container">
             <div className="sidepanel-header-container">
@@ -55,51 +56,13 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
         </div>
     );
 
-    // TODO: Add functionality
-    const Requirement = (
-        <div className="sidepanel-container accordion">
-            <div className="sidepanel-header-container">
-                <div className="requirement-header">
-                    University of California
-                </div>
-                <NavArrowDown className="icon"/>
-            </div>
-            <div className="accordion-contents">
-                <div className="accordion-item ">
-                    <div className="icon green"> <Check /> </div>
-                    <p>Entry-Level Writing</p>
-                </div>
-                <div className="accordion-item ">
-                    <div className="icon green"> <Check /> </div>
-                    <p>American History</p>
-                </div>
-                <div className="accordion-item ">
-                    <div className="icon green"></div>
-                    <p>American Institutions</p>
-                </div>
-                <div className="accordion-item ">
-                    <div className="icon green"> </div>
-                    <p>American Cultures</p>
-                </div>
-            </div>
-        </div>
-    )
-
     return (
         <div className='sidepanel'>
             {UserInfo}
             <Separator size="4" />       
-            {Requirement}
-            <Separator size="4" />  
-            {Requirement}
-            <Separator size="4" />  
-            {Requirement}
-            <Separator size="4" />  
-            {Requirement}
-            <Separator size="4" />  
-            {Requirement}
-            <Separator size="4" />  
-            {Requirement}
+            <RequirementsAccordion title={"University of California"}/>
+            <Separator size="4" />     
+            <RequirementsAccordion title={"Breadth Requirements"}/>
             <Separator size="4" />    
         </div>
    )

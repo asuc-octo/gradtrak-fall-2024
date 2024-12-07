@@ -6,6 +6,7 @@ import { Separator, Flex } from "@radix-ui/themes";
 import MAJORS from './majors.json';
 import "./AddDegree.css";
 
+
 type DegreeOption = {
     label: string;
     value: string;

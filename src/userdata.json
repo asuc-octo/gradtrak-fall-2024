@@ -1,0 +1,50 @@
+{
+  "data": {
+    "gradtrak": {
+      "user_email": "student@example.com",
+      "planTerms": [
+        {
+          "_id": "term1",
+          "name": "Fall 2024",
+          "term": {
+            "semester": "Fall",
+            "year": 2024
+          },
+          "courses": [
+            {
+              "class_ID": "ANTHRO2AC",
+              "primary_section_ID": "001",
+              "secondary_section_IDs": ["101"],
+              "college_reqs": ["LnS_HS", "LnS_SBS"],
+              "uni_reqs": ["AC"]
+              },
+            {
+              "class_ID": "CS61A",
+              "primary_section_ID": "001",
+              "secondary_section_IDs": ["101"],
+              "college_reqs": [],
+              "uni_reqs": []
+            }
+          ],
+          "custom_events": []
+        }
+      ],
+      "miscellaneous": {
+        "_id": "misc1",
+        "name": "Miscellaneous",
+        "courses": [],
+        "custom_events": []
+      },
+      "uni_reqs": ["AC", "AH", "AI", "CW", "QR", "RCA", "RCB"],
+      "college_reqs": [
+        "LnS_AL",
+        "LnS_BS",
+        "LnS_HS",
+        "LnS_IS",
+        "LnS_PV",
+        "LnS_PS",
+        "LnS_SBS"
+      ]
+    }
+  }
+}

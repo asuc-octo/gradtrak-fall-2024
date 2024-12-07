@@ -1,16 +1,15 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import SemesterBlock from "../../components/SemesterBlock"
 import { Flex } from '@radix-ui/themes';
 import SidePanel from "../../components/SidePanel/SidePanel" 
-import { requirements } from "../../components/SidePanel/types"
 import "./SemesterHome.css"
-
 
 function SemesterHome() {
   const location = useLocation();
   const { startYear, gradYear, summerCheck } = location.state || {};
+
   // Pretend this is the queried data
+  // TODO: Request for minors to be added to backend
   const user = {
     "name": "Khankamol Chor Kongrukgreatiyos",
     "majors": ["Computer Science BA", "Data Science"],
@@ -36,7 +35,6 @@ function SemesterHome() {
             totalUnits={140}
             transferUnits={40}
             pnpTotal={15}
-            requirements={requirements}
           />
 
         {/* Page body */}
