@@ -59,6 +59,7 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
     const MajorRequirements = (
         <div>
             {majors.map((major, index) => (
+              <>
                 <div className="sidepanel-container accordion">
                     <div className="sidepanel-header-container">
                         <div className="user-header">
@@ -80,6 +81,8 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
                     </div>
                     </div>
                 </div>
+                <Separator size="4" />     
+              </>
             ))}
         </div>
     )
@@ -87,7 +90,8 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
     const MinorRequirements = (
         <div>
             {minors.map((minor, index) => (
-                <div className="sidepanel-container accordion">
+            <>
+              <div className="sidepanel-container accordion">
                     <div className="sidepanel-header-container">
                         <div className="user-header">
                             <h2 className="truncate" key={index}>{minor}</h2>
@@ -108,6 +112,8 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
                     </div>
                     </div>
                 </div>
+                <Separator size="4" />     
+              </>  
             ))}
         </div>
     )
@@ -117,9 +123,7 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
             {UserInfo}
             <Separator size="4" /> 
             {MajorRequirements}
-            <Separator size="4" /> 
-            {MinorRequirements}
-            <Separator size="4" />         
+            {MinorRequirements}  
             <RequirementsAccordion title={"University of California"}/>
             <Separator size="4" />     
             <RequirementsAccordion title={"Breadth Requirements"}/>
