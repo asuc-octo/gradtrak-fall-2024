@@ -149,3 +149,11 @@ button.secondary:hover {
   height: 10px;
   color: var(--Green, #13B56B);
 }
+
+.units-title {
+  color: var(--Secondary-Text, #8A8A8A);
+}
+
+.units-comp {
+  color: var(--Red, #ED6363);
+}

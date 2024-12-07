@@ -25,3 +25,7 @@
     animation: logo-spin infinite 20s linear;
   }
 }
+
+button:hover {
+  cursor: pointer;
+}

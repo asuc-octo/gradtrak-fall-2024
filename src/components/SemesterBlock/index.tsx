@@ -11,6 +11,7 @@ import CustomClass from "../CustomClass/custom-class";
 interface SemesterYearProps  {
     selectedYear: number | string;
     selectedSemester: string;
+    onTotalUnitsChange: (newTotal: number) => void;
   };
 
   type ClassType = {
@@ -19,7 +20,7 @@ interface SemesterYearProps  {
     units: number;
   };
 
-function SemesterBlock({ selectedYear, selectedSemester }: SemesterYearProps) {
+function SemesterBlock({ selectedYear, selectedSemester, onTotalUnitsChange }: SemesterYearProps) {
 
   const [isAddClassOpen, setIsAddClassOpen] = useState(false);
   const [selectedClasses, setSelectedClasses] = useState<ClassType[]>([]);
@@ -33,16 +34,23 @@ function SemesterBlock({ selectedYear, selectedSemester }: SemesterYearProps) {
 
   const handleDeleteClass = (indexToDelete: number) => {
     const deletedClassUnits = selectedClasses[indexToDelete].units;
+    const newTotalUnits = totalUnits - deletedClassUnits;
     setSelectedClasses((prevClasses) => 
       prevClasses.filter((_, index) => index !== indexToDelete)
     );
-    setTotalUnits((prevTotalUnits) => prevTotalUnits - deletedClassUnits);
+    setTotalUnits(newTotalUnits);
+    onTotalUnitsChange(newTotalUnits);
+    // setTotalUnits((prevTotalUnits) => prevTotalUnits - deletedClassUnits);
   };
 
   const handleEditClass = () => {};
   const addClass = (cls: ClassType) => {
     setSelectedClasses((prevClasses) => [...prevClasses, cls]);
-    setTotalUnits((prevTotal) => prevTotal + cls.units); // Update total units
+    const newTotalUnits = totalUnits + cls.units;
+    // setTotalUnits((prevTotal) => prevTotal + cls.units); 
+    setTotalUnits(newTotalUnits);
+    onTotalUnitsChange(newTotalUnits);
+
   };
 
     return (

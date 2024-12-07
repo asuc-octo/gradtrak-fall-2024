@@ -56,50 +56,100 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
     );
 
     // TODO: Add functionality
-    const Requirement = (
+    const Requirement = (title: string, requirements: string[]) => (
         <div className="sidepanel-container accordion">
             <div className="sidepanel-header-container">
                 <div className="requirement-header">
-                    University of California
+                    {title}
                 </div>
                 <NavArrowDown className="icon"/>
             </div>
+            
             <div className="accordion-contents">
-                <div className="accordion-item ">
-                    <div className="icon green"> <Check /> </div>
-                    <p>Entry-Level Writing</p>
-                </div>
-                <div className="accordion-item ">
-                    <div className="icon green"> <Check /> </div>
-                    <p>American History</p>
-                </div>
-                <div className="accordion-item ">
-                    <div className="icon green"></div>
-                    <p>American Institutions</p>
-                </div>
-                <div className="accordion-item ">
-                    <div className="icon green"> </div>
-                    <p>American Cultures</p>
-                </div>
+                {requirements.map((req, index) => (
+                     <div className="accordion-item">
+                        <div className="icon green"></div>
+                        <p key={index}>{req}</p>
+                    </div>
+                    ))}
             </div>
+            
+        </div>
+    )
+
+    const MajorRequirements = (
+        <div>
+            {majors.map((major, index) => (
+                <div className="sidepanel-container accordion">
+                    <div className="sidepanel-header-container">
+                        <div className="user-header">
+                            <h2 className="truncate" key={index}>{major}</h2>
+                        </div>
+                    </div>
+                    <div className="accordion-contents">
+                    <div className="accordion-item ">
+                        <p className="units-title">Upper Division Units: </p>
+                        <p className="units-comp">0/8</p>
+                    </div>
+                    <div className="accordion-item ">
+                        <p className="units-title">Lower Division Units: </p>
+                        <p className="units-comp">0/8</p>
+                    </div>
+                    <div className="accordion-item ">
+                        <p className="units-title">Elective Units: </p>
+                        <p className="units-comp">0/7</p>
+                    </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    )
+
+    const MinorRequirements = (
+        <div>
+            {minors.map((minor, index) => (
+                <div className="sidepanel-container accordion">
+                    <div className="sidepanel-header-container">
+                        <div className="user-header">
+                            <h2 className="truncate" key={index}>{minor}</h2>
+                        </div>
+                    </div>
+                    <div className="accordion-contents">
+                    <div className="accordion-item ">
+                        <p className="units-title">Upper Division Units: </p>
+                        <p className="units-comp">0/8</p>
+                    </div>
+                    <div className="accordion-item ">
+                        <p className="units-title">Lower Division Units: </p>
+                        <p className="units-comp">0/8</p>
+                    </div>
+                    <div className="accordion-item ">
+                        <p className="units-title">Elective Units: </p>
+                        <p className="units-comp">0/7</p>
+                    </div>
+                    </div>
+                </div>
+            ))}
         </div>
     )
 
     return (
         <div className='sidepanel'>
             {UserInfo}
-            <Separator size="4" />       
-            {Requirement}
+            <Separator size="4" /> 
+            {MajorRequirements}
+            <Separator size="4" /> 
+            {MinorRequirements}
+            <Separator size="4" />         
+            {Requirement("University of California", 
+                ["Entry-Level Writing", "American History", "American Institutions", "American Cultures"])}
             <Separator size="4" />  
-            {Requirement}
+            {Requirement("Essential Skills",
+                ["R&C Part A", "R&C Part B", "Quantitative Reasoning", "Foreign Language"])}
             <Separator size="4" />  
-            {Requirement}
-            <Separator size="4" />  
-            {Requirement}
-            <Separator size="4" />  
-            {Requirement}
-            <Separator size="4" />  
-            {Requirement}
+            {Requirement("Breadth Requirements",
+                ["Arts & Literature", "Biological Science", "Historical Studies", "International Studies", 
+                "Social & Behavioral Sciences", "Physical Science", "Philosophy & Values"])}
             <Separator size="4" />    
         </div>
    )

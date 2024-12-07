@@ -14,7 +14,7 @@ function RequirementDropdown() {
     return (
       <DropdownMenu.Root>
           <DropdownMenu.Trigger className='reqBox'>
-          {reqFulfilled ? reqFulfilled : 'Select requirement...'}
+          {reqFulfilled ? reqFulfilled : 'Select a requirement...'}
               <ChevronDownIcon />
           </DropdownMenu.Trigger>
 
