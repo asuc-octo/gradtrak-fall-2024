@@ -86,7 +86,7 @@ button.primary:hover {
 }
 
 button.secondary {
-    display: flex;
+    width: 50px;
     padding: var(--XXS, 6px) var(--XS, 12px);
     justify-content: center;
     align-items: center;
