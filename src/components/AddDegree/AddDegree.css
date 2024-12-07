@@ -10,7 +10,10 @@
     align-items: flex-start;
     justify-content: center;
     align-self: stretch;
-    margin-left: 450px;
+    position: absolute; /* Change to absolute for centering */
+    top: 50%; /* Push down by 50% of the viewport height */
+    left: 50%; /* Push right by 50% of the viewport width */
+    transform: translate(-50%, -50%); /* Offset by half the container's size */
 }
 @media (max-width: 600px) {
     .container {

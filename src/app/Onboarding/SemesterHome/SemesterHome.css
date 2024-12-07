@@ -1,0 +1,28 @@
+/* .body {
+    display: block !important;
+} */
+.content {
+    display: flex;
+    flex: 1;
+    padding: 16px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+  
+.semester-layout {
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+.semester-title {
+    color: var(--Primary-Text, #000);
+    /* Web UI/Heading/Heading Large */
+    font-family: "Inter Variable";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 580;
+    line-height: 36px; /* 128.571% */
+    letter-spacing: -0.28px;
+    text-align: left;
+    margin-left: 32px;
+}

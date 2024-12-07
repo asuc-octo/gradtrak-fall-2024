@@ -32,7 +32,7 @@ export default function RequirementsAccordion({ title }: RequirementsAccordionPr
             {isExpanded && (
                 <div className="accordion-contents">
                     {Object.values(Uni_Reqs).map((requirement, index) => {
-                        const isFulfilled = true; // Replace with your `checkRequirementFulfilled` logic
+                        const isFulfilled = true; // TODO: Replace with `checkRequirementFulfilled` logic
                         return (
                             <div
                                 key={index}
