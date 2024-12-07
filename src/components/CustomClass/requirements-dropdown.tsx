@@ -21,7 +21,7 @@ function RequirementDropdown() {
           <DropdownMenu.Portal>
             <DropdownMenu.Content className="reqOptionsBox">
                   
-                    <DropdownMenu.Item 
+                    {/* <DropdownMenu.Item 
                     className="reqOptions"
                     onSelect={() => handleReqSelect("check")}>
                       Check 
@@ -30,7 +30,7 @@ function RequirementDropdown() {
                     className="reqOptions"
                     onSelect={() => handleReqSelect("check2")}>
                       Check2
-                    </DropdownMenu.Item>
+                    </DropdownMenu.Item> */}
                   
               </DropdownMenu.Content>
           </DropdownMenu.Portal>

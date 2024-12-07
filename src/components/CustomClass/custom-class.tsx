@@ -4,7 +4,10 @@ import React, { useState } from 'react';
 import * as Dialog from "@radix-ui/react-dialog";
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import { Separator } from "@radix-ui/themes";
-import PinIcon from '@mui/icons-material/Pin';
+import PinIcon from '@mui/icons-material/PinOutlined';
+import TagIcon from '@mui/icons-material/Tag';
+import CalendarIcon from '@mui/icons-material/CalendarMonth';
+import LibBooksIcon from '@mui/icons-material/LibraryBooksOutlined'
 
 import { Xmark } from 'iconoir-react';
 import RequirementDropdown from "./requirements-dropdown";
@@ -40,23 +43,31 @@ function CustomClass({open, onClose, onConfirm}: CustomClassProps) {
                     <div className="sections">
                         <p className="info">INFO</p>
                         <div className="s1">
-                            <PinIcon className="pinIcon"/>
+                            <PinIcon className="pinIcon" style={{fill: '#8A8A8A', width: '16px', height: '16px'}}/>
                             <input type="text" placeholder='Add Class ID' value={classId} onChange={(e) => setClassId((e.target.value))} />
                         </div>
-                        <input placeholder="Add Class Title" type="text" value={className} onChange={(e) => setClassName(e.target.value)}/>
+                        <div className="s1">
+                            <LibBooksIcon style={{fill: '#8A8A8A', width: '16px', height: '16px'}}/>
+                            <input placeholder="Add Class Title" type="text" value={className} onChange={(e) => setClassName(e.target.value)}/>
+                        </div>
                     </div>
-                    {/* <div className="divider-line" /> */}
                     <Separator size="4" className="separate"/>
 
                     <div className="sections">
                         <p className="info">UNITS</p>
-                        <input placeholder="Units" type="text" value={classUnits} onChange={(e) => setClassUnits((e.target.value))}/>
+                        <div className="s1">
+                            <TagIcon style={{fill: '#8A8A8A', width: '16px', height: '16px'}}/>
+                            <input placeholder="Units" type="text" value={classUnits} onChange={(e) => setClassUnits((e.target.value))}/>
+                        </div>
                     </div>
                     <Separator size="4" className="separate"/>
 
                     <div className="sections">
                         <p className="info">SEMESTER</p>
-                        <input placeholder="Search for a semester..."/>
+                        <div className="s1">
+                            <CalendarIcon style={{fill: '#8A8A8A', width: '16px', height: '16px'}} />
+                            <input placeholder="Search for a semester..."/>
+                        </div>
                     </div>
                     <Separator size="4" className="separate"/>
 
@@ -115,13 +126,17 @@ function CustomClass({open, onClose, onConfirm}: CustomClassProps) {
                     <Separator size="4" className="separate"/>
 
                     <div className="sections">
-                        <p className="info">REQUIREMENTS FULFILLED</p>
-                        <RequirementDropdown></RequirementDropdown>
+                        <div className="reqDropdown">
+                            <p className="info">REQUIREMENTS FULFILLED</p>
+                                <RequirementDropdown></RequirementDropdown>
+                            </div>
                     </div>
                     <Separator size="4" className="separate"/>
 
                     <Dialog.Close asChild>
-                        <Button onClick={handleConfirm}>Confirm</Button>
+                        <div className="dialogFooter">
+                            <Button onClick={handleConfirm} className="confirmBtn">Confirm</Button>
+                        </div>
                     </Dialog.Close>
                 </Dialog.Content>
             </Dialog.Root>
