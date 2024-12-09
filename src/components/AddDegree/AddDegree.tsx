@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Select from 'react-select'
@@ -6,7 +6,6 @@ import { Separator, Flex } from "@radix-ui/themes";
 import MAJORS from './majors.json';
 import "./AddDegree.css";
 import DotsIndicator from '../SetUpPage/dots-indicator';
-
 
 type DegreeOption = {
     label: string;

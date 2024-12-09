@@ -1,14 +1,16 @@
 
 import "./custom-class.css";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as Dialog from "@radix-ui/react-dialog";
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import { Separator } from "@radix-ui/themes";
-import PinIcon from '@mui/icons-material/Pin';
-
+import PinOutlinedIcon from '@mui/icons-material/PinOutlined';
+import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
+import TagOutlinedIcon from '@mui/icons-material/TagOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import { Xmark } from 'iconoir-react';
 import RequirementDropdown from "./requirements-dropdown";
-import { Button } from "@radix-ui/themes";
+import Select from 'react-select'
 
 type CustomClassProps = {
     open: boolean;
@@ -31,6 +33,17 @@ function CustomClass({open, onClose, onConfirm}: CustomClassProps) {
         }
       };
 
+      const RequirementSelect = () => (
+        <Select 
+            className="requirement-select" 
+            options={["check1", "check2"]} 
+            isSearchable={true} 
+            isClearable={true}
+            placeholder={`Select requirement...`}
+            value={'Select requirement...'}
+        />
+      )
+
     return (
         <>
             <Dialog.Root open={open} onOpenChange={onClose}>
@@ -38,30 +51,39 @@ function CustomClass({open, onClose, onConfirm}: CustomClassProps) {
                 <Dialog.Content className="dialog-content">
                     <Dialog.Title className="dialog-title">Add Custom Class<Xmark onClick={onClose}/></Dialog.Title>
                     <div className="sections">
-                        <p className="info">INFO</p>
+                        <p className="info">Info</p>
                         <div className="s1">
-                            <PinIcon className="pinIcon"/>
+                            <PinOutlinedIcon className="dialog-icon"/>
                             <input type="text" placeholder='Add Class ID' value={classId} onChange={(e) => setClassId((e.target.value))} />
                         </div>
-                        <input placeholder="Add Class Title" type="text" value={className} onChange={(e) => setClassName(e.target.value)}/>
+                        <div className="s1">
+                            <ClassOutlinedIcon className="dialog-icon"/>
+                            <input placeholder="Add Class Title" type="text" value={className} onChange={(e) => setClassName(e.target.value)}/>
+                        </div>
                     </div>
                     {/* <div className="divider-line" /> */}
                     <Separator size="4" className="separate"/>
 
                     <div className="sections">
-                        <p className="info">UNITS</p>
-                        <input placeholder="Units" type="text" value={classUnits} onChange={(e) => setClassUnits((e.target.value))}/>
+                        <p className="info">Units</p>
+                        <div className="s1">
+                            <TagOutlinedIcon className="dialog-icon"/>
+                            <input placeholder="Units" type="text" value={classUnits} onChange={(e) => setClassUnits((e.target.value))}/>
+                        </div>
                     </div>
                     <Separator size="4" className="separate"/>
 
                     <div className="sections">
-                        <p className="info">SEMESTER</p>
-                        <input placeholder="Search for a semester..."/>
+                        <p className="info">Semester</p>
+                        <div className="s1">
+                            <CalendarMonthOutlinedIcon className="dialog-icon"/>
+                            <input placeholder="Search for a semester..."/>
+                        </div>
                     </div>
                     <Separator size="4" className="separate"/>
 
                     <div className="sections">
-                        <p className="info">GRADING</p>
+                        <p className="info">Grading</p>
                         <RadioGroup.Root
                             className="RadioGroupRoot"
                             defaultValue="default"
@@ -72,7 +94,7 @@ function CustomClass({open, onClose, onConfirm}: CustomClassProps) {
                                     <RadioGroup.Indicator className="RadioGroupIndicator" />
                                 </RadioGroup.Item>
                                 <label className="Label" htmlFor="r1">
-                                    Grading
+                                    Graded
                                 </label>
                             </div>
                             <div style={{ display: "flex", alignItems: "center" }}>
@@ -88,7 +110,7 @@ function CustomClass({open, onClose, onConfirm}: CustomClassProps) {
                     <Separator size="4" className="separate"/>
 
                     <div className="sections">
-                        <p className="info">CREDIT</p>
+                        <p className="info">Credit</p>
                         <RadioGroup.Root
                             className="RadioGroupRoot"
                             defaultValue="default"
@@ -116,13 +138,15 @@ function CustomClass({open, onClose, onConfirm}: CustomClassProps) {
 
                     <div className="sections">
                         <p className="info">REQUIREMENTS FULFILLED</p>
-                        <RequirementDropdown></RequirementDropdown>
+                        <RequirementSelect />
+                        {/* Stubbing out for now <RequirementDropdown></RequirementDropdown> */}
                     </div>
-                    <Separator size="4" className="separate"/>
+                    <Separator size="4" className="separate"/>  
 
                     <Dialog.Close asChild>
-                        <Button onClick={handleConfirm}>Confirm</Button>
+                        <button className="primary custom-class" onClick={handleConfirm}>Confirm</button>
                     </Dialog.Close>
+
                 </Dialog.Content>
             </Dialog.Root>
         </>

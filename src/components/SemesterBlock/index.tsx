@@ -1,12 +1,10 @@
-import { Box } from "@radix-ui/themes";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from "@radix-ui/themes";
 import "./semesterblock.css"
 import AddClass from "../AddClass/AddClass";
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { DotsHorizontalIcon, TrashIcon, FileTextIcon } from '@radix-ui/react-icons';
 import CustomClass from "../CustomClass/custom-class";
-
 
 interface SemesterYearProps  {
     selectedYear: number | string;

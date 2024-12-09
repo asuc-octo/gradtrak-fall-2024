@@ -56,8 +56,8 @@ function SemesterHome() {
             majors={user.majors} 
             minors={user.minors}
             totalUnits={totalUnits}
-            transferUnits={40}
-            pnpTotal={15}
+            transferUnits={0}
+            pnpTotal={0}
           />
 
         {/* Page body */}
