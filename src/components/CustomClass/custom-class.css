@@ -182,13 +182,6 @@ input {
   
 }
 
-.pinIcon {
-  font-size: 24;
-  color: '#e8eaed';
-
-   
-}
-
 .s1 {
   display: flex;
   align-items: center;
@@ -196,8 +189,8 @@ input {
 
 .dialogFooter {
   display: flex; 
-  justify-content: center; /* Horizontally center the button */
-  align-items: center; /* Vertically center, if needed */
+  justify-content: center; 
+  align-items: center; 
   width: 100%;
 }
 
