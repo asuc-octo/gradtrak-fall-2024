@@ -12,7 +12,7 @@ function App() {
           <Route path="/" element={<SetUpPage />} />
           <Route path="/add-major" element={<AddDegree isMajor={true}/>} />
           <Route path="/add-minor" element={<AddDegree isMajor={false}/>} />
-          <Route path="/next" element={<SemesterHome />} />
+          <Route path="/home" element={<SemesterHome />} />
         </Routes>
       </Router>
     </>

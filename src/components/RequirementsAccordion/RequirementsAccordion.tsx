@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Check, NavArrowDown, NavArrowRight } from 'iconoir-react';
-import { Uni_Reqs } from '../../lib/api';
+import { Uni_Reqs, College_Reqs } from '../../lib/api';
 import "./RequirementsAccordion.css";
+
+type RequirementEnum = Uni_Reqs | College_Reqs ;
 
 interface RequirementsAccordionProps {
     title: string;
+    requirements: RequirementEnum[];
 }
 
-export default function RequirementsAccordion({ title }: RequirementsAccordionProps) {
+export default function RequirementsAccordion({ title, requirements }: RequirementsAccordionProps) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleAccordion = () => {
@@ -31,8 +34,8 @@ export default function RequirementsAccordion({ title }: RequirementsAccordionPr
             {/* Conditionally rendered accordion contents */}
             {isExpanded && (
                 <div className="accordion-contents">
-                    {Object.values(Uni_Reqs).map((requirement, index) => {
-                        const isFulfilled = true; // TODO: Replace with `checkRequirementFulfilled` logic
+                    {Object.values(requirements).map((requirement, index) => {
+                        const isFulfilled = false; // TODO: Replace with `checkRequirementFulfilled` logic
                         return (
                             <div
                                 key={index}

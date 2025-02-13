@@ -1,8 +1,10 @@
 import { Separator } from "@radix-ui/themes";
 import RequirementsAccordion from "../RequirementsAccordion/RequirementsAccordion";
 import "./SidePanel.css";
+import { Uni_Reqs, College_Reqs } from '../../lib/api';
 
 // TODO: function checkRequirementFulfilled()
+// TODO: Implement proper requirements enum...
   
 interface SidePanelProps {
     name: string;
@@ -124,9 +126,28 @@ export default function SidePanel({ name, majors, minors, totalUnits, transferUn
             <Separator size="4" /> 
             {MajorRequirements}
             {MinorRequirements}  
-            <RequirementsAccordion title={"University of California"}/>
+            <RequirementsAccordion title={"University of California"}
+                requirements={[
+                    Uni_Reqs.AC,
+                    Uni_Reqs.AH,
+                    Uni_Reqs.AI,
+                    Uni_Reqs.CW,
+                    Uni_Reqs.QR,
+                    Uni_Reqs.RCA,
+                    Uni_Reqs.RCB,
+                    Uni_Reqs.FL,
+                ]}/>
             <Separator size="4" />     
-            <RequirementsAccordion title={"Breadth Requirements"}/>
+            <RequirementsAccordion title={"Breadth Requirements"}    
+                requirements={[
+                    College_Reqs.LnS_AL,
+                    College_Reqs.LnS_BS,
+                    College_Reqs.LnS_HS,
+                    College_Reqs.LnS_IS,
+                    College_Reqs.LnS_PV,
+                    College_Reqs.LnS_PS,
+                    College_Reqs.LnS_SBS,
+                ]}/>
             <Separator size="4" />    
         </div>
    )

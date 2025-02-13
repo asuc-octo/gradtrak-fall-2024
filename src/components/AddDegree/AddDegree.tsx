@@ -62,7 +62,7 @@ export default function AddDegree({ isMajor }: AddDegreeProps) {
         if (isMajor) {
             navigate("/add-minor", { state : { startYear, gradYear, summerCheck, selectedDegreeList, selectedMinorList }  })
         } else {
-            navigate("/next", { state : { startYear, gradYear, summerCheck, selectedDegreeList, selectedMinorList }  })
+            navigate("/home", { state : { startYear, gradYear, summerCheck, selectedDegreeList, selectedMinorList }  })
         }
     };
 
