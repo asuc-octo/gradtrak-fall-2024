@@ -143,3 +143,23 @@
   background-color: #bfdbfe;
 }
 
+/* styling for draggable items */
+.classContainer {
+  cursor: grab;
+  position: relative;
+}
+
+.classContainer:active {
+  cursor: grabbing;
+}
+
+/* visual feedback for drag operation */
+.classContainer.dragging {
+  opacity: 0.6;
+  transform: scale(0.95);
+}
+
+/* styling for drop targets */
+.semesters.drop-target .container {
+  /* background-color: rgba(77, 144, 254, 0.1) !important; */
+}
