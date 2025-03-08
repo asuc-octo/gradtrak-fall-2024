@@ -4,7 +4,7 @@ import "./semesterblock.css"
 import AddClass from "../AddClass/AddClass";
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { DotsHorizontalIcon, TrashIcon, FileTextIcon } from '@radix-ui/react-icons';
-import CustomClass from "../CustomClass/custom-class";
+import { ClassType } from '../../types/types';
 
 interface SemesterYearProps  {
     selectedYear: number | string;
@@ -12,26 +12,14 @@ interface SemesterYearProps  {
     onTotalUnitsChange: (newTotal: number) => void;
   };
 
-  type ClassType = {
-    id: number;
-    name: string;
-    units: number;
-  };
-
 function SemesterBlock({ selectedYear, selectedSemester, onTotalUnitsChange }: SemesterYearProps) {
 
   const [isAddClassOpen, setIsAddClassOpen] = useState(false);
   const [selectedClasses, setSelectedClasses] = useState<ClassType[]>([]);
   const [totalUnits, setTotalUnits] = useState(0);
-  const [isCustomClassOpen, setIsCustomClassOpen] = useState(false);
-
-  const openCustomClass = () => setIsCustomClassOpen(true);
-  const closeCustomClass = () => {
-    setIsCustomClassOpen(false)
-  };
 
   const handleDeleteClass = (indexToDelete: number) => {
-    const deletedClassUnits = selectedClasses[indexToDelete].units;
+    const deletedClassUnits = selectedClasses[indexToDelete].unitsMax;
     const newTotalUnits = totalUnits - deletedClassUnits;
     setSelectedClasses((prevClasses) => 
       prevClasses.filter((_, index) => index !== indexToDelete)
@@ -44,7 +32,7 @@ function SemesterBlock({ selectedYear, selectedSemester, onTotalUnitsChange }: S
   const handleEditClass = () => {};
   const addClass = (cls: ClassType) => {
     setSelectedClasses((prevClasses) => [...prevClasses, cls]);
-    const newTotalUnits = totalUnits + cls.units;
+    const newTotalUnits = totalUnits + cls.unitsMax;
     // setTotalUnits((prevTotal) => prevTotal + cls.units); 
     setTotalUnits(newTotalUnits);
     onTotalUnitsChange(newTotalUnits);
@@ -90,8 +78,8 @@ function SemesterBlock({ selectedYear, selectedSemester, onTotalUnitsChange }: S
                     </DropdownMenu.Item>
                     </DropdownMenu.Content>
                 </DropdownMenu.Root>
-              <h3 className="classTitle">{cls.name}</h3>
-              <p className="units">{cls.units} Units</p>
+              <h3 className="classTitle">{cls.subject} {cls.courseNumber}</h3>
+              <p className="units">{cls.unitsMax} Units</p>
             </div>
           ))}
         {/* </div> */}

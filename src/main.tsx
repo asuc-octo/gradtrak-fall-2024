@@ -10,7 +10,7 @@ import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8080/graphql',
+  uri: 'https://stanfurdtime.com/api/graphql',
   cache: new InMemoryCache()
 });
 
