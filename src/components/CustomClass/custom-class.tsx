@@ -9,13 +9,12 @@ import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import TagOutlinedIcon from '@mui/icons-material/TagOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import { Xmark } from 'iconoir-react';
-import RequirementDropdown from "./requirements-dropdown";
 import Select from 'react-select'
-
+import { ClassType } from '../../types/types';
 type CustomClassProps = {
     open: boolean;
     onClose: () => void;
-    onConfirm: (cls: { id: number; name: string; units: number }) => void;
+    onConfirm: (classType: ClassType) => void;
   };
 
 function CustomClass({open, onClose, onConfirm}: CustomClassProps) {
@@ -25,7 +24,7 @@ function CustomClass({open, onClose, onConfirm}: CustomClassProps) {
 
     const handleConfirm = () => {
         if (className && Number(classUnits) > 0) {
-          onConfirm({ id: Number(classId), name: className, units: Number(classUnits) });
+          onConfirm({ courseNumber: classId, subject: className, unitsMax:  Number(classUnits) });
           setClassId('');
           setClassName('');
           setClassUnits('');

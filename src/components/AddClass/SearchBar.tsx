@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@radix-ui/themes";
 import CustomClass from "../CustomClass/custom-class";
 import "./addclass.css";
+import { ClassType } from '../../types/types';
 
 interface SearchBarProps  {
     isOpen: boolean;
@@ -14,12 +15,6 @@ interface SearchBarProps  {
     handleOnConfirm: (cls: ClassType) => void;
 
 };
-
-type ClassType = {
-    id: number;
-    name: string;
-    units: number;
-  };
 
 function SearchBar({isOpen, setIsOpen, searchTerm, handleSearch, filteredClasses, handleSelectClass, handleOnConfirm}: SearchBarProps) {
     const [isCustomClassOpen, setIsCustomClassOpen] = useState(false);
@@ -44,13 +39,13 @@ function SearchBar({isOpen, setIsOpen, searchTerm, handleSearch, filteredClasses
                             {/* Dropdown for suggestions */}
                             {(
                                 <ul className="suggestion-list">
-                                {filteredClasses.map((cls) => (
+                                {filteredClasses.map((cls, index) => (
                                     <li
-                                    key={cls.id}
+                                    key={`${cls.subject}-${cls.courseNumber}-${index}`}
                                     onClick={() => handleSelectClass(cls)}
                                     className="suggestion-item"
                                     >
-                                    {cls.name} - {cls.units} units
+                                    {cls.subject}{cls.courseNumber} - {cls.unitsMax} units
                                     </li>
                                 ))}
                                 <li key="default" className='suggestion-item'>
