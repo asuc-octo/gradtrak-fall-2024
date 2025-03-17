@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from "@radix-ui/themes";
 import "./semesterblock.css";
 import AddClass from "../AddClass/AddClass";
@@ -35,6 +36,8 @@ interface SemesterYearProps  {
   const [totalUnits, setTotalUnits] = useState(0);
   const [isCustomClassOpen, setIsCustomClassOpen] = useState(false);
   const [isDropTarget, setIsDropTarget] = useState(false);
+  const [placeholderIndex, setPlaceholderIndex] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // get the total units when selectedClasses change
   useEffect(() => {
@@ -85,8 +88,42 @@ interface SemesterYearProps  {
     updateAllSemesters(updatedSemesters);
   };
 
+  // find the insertion point based on mouse position
+  const findInsertPosition = (e: React.DragEvent) => {
+    if (!containerRef.current) return 0;
+    
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const mouseY = e.clientY;
+    
+    // get all class elements in this container
+    const classElements = containerRef.current.querySelectorAll('.classContainer');
+    
+    // if no classes, insert at the beginning
+    if (classElements.length === 0) {
+      return 0;
+    }
+    
+    // loop through class elements to find the insertion point
+    for (let i = 0; i < classElements.length; i++) {
+      const classRect = classElements[i].getBoundingClientRect();
+      const classMidY = classRect.top + (classRect.height / 2);
+      
+      if (mouseY < classMidY) {
+        return i;
+      }
+    }
+    
+    // if mouse is below all classes, insert at the end
+    return classElements.length;
+  };
+
   // drag event handlers
   const handleDragStart = (e: React.DragEvent, classIndex: number) => {
+    // add visual indication for the dragged item
+    if (e.currentTarget instanceof HTMLElement) {
+      e.currentTarget.classList.add('dragging');
+    }
+    
     // store the semester ID and class index in the drag data
     e.dataTransfer.setData("application/json", JSON.stringify({
       sourceSemesterId: semesterId,
@@ -95,41 +132,79 @@ interface SemesterYearProps  {
     }));
     e.dataTransfer.effectAllowed = "move";
   };
+  
+  const handleDragEnd = (e: React.DragEvent) => {
+    // remove visual styling
+    if (e.currentTarget instanceof HTMLElement) {
+      e.currentTarget.classList.remove('dragging');
+    }
+    
+    setPlaceholderIndex(null);
+  };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault(); // allow drop
     setIsDropTarget(true);
+    
+    try {
+      // find where to insert
+      const insertPos = findInsertPosition(e);
+      setPlaceholderIndex(insertPos);
+    } catch (error) {
+      console.error("Error in dragover:", error);
+    }
   };
 
-  const handleDragLeave = () => {
-    setIsDropTarget(false);
+  const handleDragLeave = (e: React.DragEvent) => {
+    // only reset if leaving the entire container (not just moving between children)
+    if (containerRef.current && !containerRef.current.contains(e.relatedTarget as Node)) {
+      setIsDropTarget(false);
+      setPlaceholderIndex(null);
+    }
   };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDropTarget(false);
+    setPlaceholderIndex(null);
     
     try {
       // get the dragged class data
       const data = JSON.parse(e.dataTransfer.getData("application/json"));
       const { sourceSemesterId, classIndex, class: draggedClass } = data;
       
-      // don't do anything if dropping back to the same semester
-      if (sourceSemesterId === semesterId) return;
+      // find the insertion position
+      const insertPos = findInsertPosition(e);
       
-      // remove class from source semester
-      const sourceSemesterClasses = [...allSemesters[sourceSemesterId]];
-      sourceSemesterClasses.splice(classIndex, 1);
+      // create updated semesters object
+      const updatedSemesters = { ...allSemesters };
       
-      // add class to target semester (this semester)
-      const targetSemesterClasses = [...selectedClasses, draggedClass];
-      
-      // update all semesters
-      const updatedSemesters = {
-        ...allSemesters,
-        [sourceSemesterId]: sourceSemesterClasses,
-        [semesterId]: targetSemesterClasses
-      };
+      // handle dragging within the same semester
+      if (sourceSemesterId === semesterId) {
+        const updatedClasses = [...selectedClasses];
+        
+        // remove from original position
+        updatedClasses.splice(classIndex, 1);
+        
+        // adjust insert position if needed
+        const adjustedPos = classIndex < insertPos ? insertPos - 1 : insertPos;
+        
+        // insert at new position
+        updatedClasses.splice(adjustedPos, 0, draggedClass);
+        updatedSemesters[semesterId] = updatedClasses;
+      } 
+      // handle dragging between different semesters
+      else {
+        // remove class from source semester
+        const sourceSemesterClasses = [...allSemesters[sourceSemesterId]];
+        sourceSemesterClasses.splice(classIndex, 1);
+        updatedSemesters[sourceSemesterId] = sourceSemesterClasses;
+        
+        // add class to target semester at the right position
+        const targetSemesterClasses = [...selectedClasses];
+        targetSemesterClasses.splice(insertPos, 0, draggedClass);
+        updatedSemesters[semesterId] = targetSemesterClasses;
+      }
       
       // update the global state
       updateAllSemesters(updatedSemesters);
@@ -138,8 +213,10 @@ interface SemesterYearProps  {
     }
   };
 
+  // render component with classes and placeholder
   return (
     <div 
+      ref={containerRef}
       className={`semesters ${isDropTarget ? 'drop-target' : ''}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
@@ -151,45 +228,57 @@ interface SemesterYearProps  {
           <p className="counter">{totalUnits}</p>
         </div>
 
-        {/* display selected classes with drag functionality */}
+        {/* render classes with placeholder at the correct position */}
         {selectedClasses.map((cls, index) => (
+          <React.Fragment key={`class-group-${index}`}>
+            {placeholderIndex === index && (
+              <div className="class-placeholder" />
+            )}
+            
           <div 
             key={index} 
-            className="classContainer"
-            draggable={true}
-            onDragStart={(e) => handleDragStart(e, index)}
-          >
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger asChild>
-                <Button className="dropDownBtn">
-                  <DotsHorizontalIcon className="three-dot-icon" />
-                </Button>
-              </DropdownMenu.Trigger>
+              className="classContainer"
+              draggable={true}
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragEnd={handleDragEnd}
+            >
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger asChild>
+                  <Button className="dropDownBtn">
+                    <DotsHorizontalIcon className="three-dot-icon" />
+                  </Button>
+                </DropdownMenu.Trigger>
 
-              {/* dropdown menu content */}
-              <DropdownMenu.Content
-                className="three-dot-menu"
-                sideOffset={5}
-                align="end"
-              >
-                <DropdownMenu.Item
-                  className="menu-item"
-                  onClick={handleEditClass}
+                {/* dropdown menu content */}
+                <DropdownMenu.Content
+                  className="three-dot-menu"
+                  sideOffset={5}
+                  align="end"
                 >
-                  <FileTextIcon/> Edit Course Details
-                </DropdownMenu.Item>
-                <DropdownMenu.Item
-                  className="menu-item"
-                  onClick={() => handleDeleteClass(index)}
-                >
-                  <TrashIcon/> Delete Class
-                </DropdownMenu.Item>
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
-            <h3 className="classTitle">{cls.name}</h3>
-            <p className="units">{cls.units} Units</p>
-          </div>
+                  <DropdownMenu.Item
+                    className="menu-item"
+                    onClick={handleEditClass}
+                  >
+                    <FileTextIcon/> Edit Course Details
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item
+                    className="menu-item"
+                    onClick={() => handleDeleteClass(index)}
+                  >
+                    <TrashIcon/> Delete Class
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Root>
+              <h3 className="classTitle">{cls.name}</h3>
+              <p className="units">{cls.units} Units</p>
+            </div>
+          </React.Fragment>
         ))}
+        
+        {/* show placeholder at the end if needed */}
+        {placeholderIndex === selectedClasses.length && (
+          <div className="class-placeholder" />
+        )}
 
         {/* dialog component */}
         <AddClass 
