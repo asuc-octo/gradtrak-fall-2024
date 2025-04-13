@@ -1,6 +1,7 @@
 // EditPopup.tsx
 import * as Dialog from '@radix-ui/react-dialog';
-import React, { useState } from 'react';
+import { Separator } from "@radix-ui/themes";
+import React, { useState, useEffect } from 'react';
 import './EditPopup.css';
 
 interface EditPopupProps {
@@ -53,8 +54,8 @@ export default function EditPopup({
     onSave(updatedData);
   };
 
-  // Reset form whenever the dialog opens
-  React.useEffect(() => {
+  // Reset form whenever the dialog opens.
+  useEffect(() => {
     setEditedName(name);
     setEditedMajors(majors.join(', '));
     setEditedMinors(minors.join(', '));
@@ -64,78 +65,154 @@ export default function EditPopup({
   }, [isOpen, name, majors, minors, totalUnits, transferUnits, pnpTotal]);
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <Dialog.Root
+      open={isOpen}
+      onOpenChange={(open) => { if (!open) onClose(); }}
+    >
       <Dialog.Portal>
-        <Dialog.Overlay className="dialog-overlay">
-          <Dialog.Content className="dialog-content">
-            <Dialog.Title>Edit Graduation Plan</Dialog.Title>
-            <Dialog.Description>
-              Update your graduation plan details below.
-            </Dialog.Description>
-            <form onSubmit={handleSubmit} className="edit-form">
-              <div className="form-group">
-                <label htmlFor="name-input">Name:</label>
-                <input
-                  id="name-input"
-                  type="text"
-                  value={editedName}
-                  onChange={(e) => setEditedName(e.target.value)}
-                />
+        <Dialog.Overlay className="DialogOverlay">
+          <Dialog.Content className="DialogContent">
+            <Dialog.Title className="DialogTitle">Edit Graduation Plan</Dialog.Title>
+            <div className="Sections">
+              <div className="Section">
+                <div className="input-group">
+                  <p className="SectionTitle">Name</p>
+                  <div className="FieldContainer">
+                    <input
+                      id="name-input"
+                      type="text"
+                      value={editedName}
+                      onChange={(e) => setEditedName(e.target.value)}
+                      className="FieldInput"
+                    />
+                  </div>
+                </div>
+                <div className="years-container">
+                  <div className="input-group">
+                    <p className="SectionTitle">Start Year</p>
+                    <div className="FieldContainer">
+                      <input
+                        id="start-year-input"
+                        type="number"
+                        value={editedName}
+                        onChange={(e) => setEditedName(e.target.value)}
+                        className="FieldInput"
+                        placeholder="Enter start year"
+                      />
+                    </div>
+                  </div>
+                  <div className="input-group">
+                    <p className="SectionTitle">Graduation Year</p>
+                    <div className="FieldContainer">
+                      <input
+                        id="grad-year-input"
+                        type="number"
+                        value={editedName}
+                        onChange={(e) => setEditedName(e.target.value)}
+                        className="FieldInput"
+                        placeholder="Enter graduation year"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div style={{ marginTop: "20px" }}>
+                  <input
+                    type="checkbox"
+                    id="include-summer"
+                    onChange={(e) => setEditedName(e.target.value)}
+                  />
+                  <label htmlFor="include-summer">
+                    Include Summer Semesters?
+                  </label>
+                </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="majors-input">Majors (comma-separated):</label>
-                <input
-                  id="majors-input"
-                  type="text"
-                  value={editedMajors}
-                  onChange={(e) => setEditedMajors(e.target.value)}
-                />
+              <Separator size="4" />
+              <div className="Section">
+                <div style={{ display: "flex", gap: "30px" }}>
+                  <div className="input-group">
+                    <p className="SectionTitle">Major(s)</p>
+                    <div className="FieldContainer">
+                      <input
+                        id="majors-input"
+                        type="text"
+                        value={editedMajors}
+                        onChange={(e) => setEditedMajors(e.target.value)}
+                        className="FieldInput"
+                        placeholder="Enter majors"
+                      />
+                    </div>
+                  </div>
+                  <div className="input-group">
+                    <p className="SectionTitle">Minor(s)</p>
+                    <div className="FieldContainer">
+                      <input
+                        id="minors-input"
+                        type="text"
+                        value={editedMinors}
+                        onChange={(e) => setEditedMinors(e.target.value)}
+                        className="FieldInput"
+                        placeholder="Enter minors"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="minors-input">Minors (comma-separated):</label>
-                <input
-                  id="minors-input"
-                  type="text"
-                  value={editedMinors}
-                  onChange={(e) => setEditedMinors(e.target.value)}
-                />
+              <Separator size="4" />
+              <div className="Section">
+                <div style={{ display: "flex", gap: "30px" }}>
+                  <div className="input-group">
+                    <p className="SectionTitle">Total Units</p>
+                    <div className="FieldContainer">
+                      <input
+                        id="total-units-input"
+                        type="number"
+                        value={editedTotalUnits}
+                        onChange={(e) => setEditedTotalUnits(e.target.value)}
+                        className="FieldInput"
+                        placeholder="Enter total units"
+                      />
+                    </div>
+                  </div>
+                  <div className="input-group">
+                    <p className="SectionTitle">Transfer Units</p>
+                    <div className="FieldContainer">
+                      <input
+                        id="transfer-units-input"
+                        type="number"
+                        value={editedTransferUnits}
+                        onChange={(e) => setEditedTransferUnits(e.target.value)}
+                        className="FieldInput"
+                        placeholder="Enter transfer units"
+                      />
+                    </div>
+                  </div>
+                  <div className="input-group">
+                    <p className="SectionTitle">P/NP Total</p>
+                    <div className="FieldContainer">
+                      <input
+                        id="pnp-total-input"
+                        type="number"
+                        value={editedPnpTotal}
+                        onChange={(e) => setEditedPnpTotal(e.target.value)}
+                        className="FieldInput"
+                        placeholder="Enter P/NP total"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="total-units-input">Total Units:</label>
-                <input
-                  id="total-units-input"
-                  type="number"
-                  value={editedTotalUnits}
-                  onChange={(e) => setEditedTotalUnits(e.target.value)}
-                />
+              <Separator size="4" />
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px", padding: "20px 32px" }}>
+                <Dialog.Close asChild>
+                  <button className="DialogClose" onClick={onClose}>
+                    Close
+                  </button>
+                </Dialog.Close>
+                <button type="submit" onClick={handleSubmit} className="ConfirmButton">
+                  Save Changes
+                </button>
               </div>
-              <div className="form-group">
-                <label htmlFor="transfer-units-input">Transfer Units:</label>
-                <input
-                  id="transfer-units-input"
-                  type="number"
-                  value={editedTransferUnits}
-                  onChange={(e) => setEditedTransferUnits(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="pnp-total-input">P/NP Total:</label>
-                <input
-                  id="pnp-total-input"
-                  type="number"
-                  value={editedPnpTotal}
-                  onChange={(e) => setEditedPnpTotal(e.target.value)}
-                />
-              </div>
-              {/* Save button */}
-              <button type="submit">Save</button>
-            </form>
-            {/* Close button */}
-            <Dialog.Close asChild>
-              <button className="dialog-close" onClick={onClose}>
-                Close
-              </button>
-            </Dialog.Close>
+            </div>
           </Dialog.Content>
         </Dialog.Overlay>
       </Dialog.Portal>
