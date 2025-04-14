@@ -1,53 +1,91 @@
 import React, { useState } from 'react';
 import { Check, NavArrowDown, NavArrowRight } from 'iconoir-react';
-import { Uni_Reqs, College_Reqs } from '../../lib/api';
+import { Uni_Reqs } from '../../lib/api';
 import "./RequirementsAccordion.css";
-
-type RequirementEnum = Uni_Reqs | College_Reqs ;
 
 interface RequirementsAccordionProps {
     title: string;
-    requirements: RequirementEnum[];
+    requirements?: Uni_Reqs[];
 }
 
 export default function RequirementsAccordion({ title, requirements }: RequirementsAccordionProps) {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [fulfilledRequirements, setFulfilledRequirements] = useState<Set<Uni_Reqs>>(new Set());
+    const [hoveredRequirement, setHoveredRequirement] = useState<Uni_Reqs | null>(null);
+    const [activeMenuRequirement, setActiveMenuRequirement] = useState<Uni_Reqs | null>(null);
 
     const toggleAccordion = () => {
         setIsExpanded(prev => !prev);
     };
 
-    // TODO: Add functionality
-    // TODO: Clean up code
+    const handleMouseEnter = (requirement: Uni_Reqs) => {
+        setHoveredRequirement(requirement);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredRequirement(null);
+    };
+
+    const openMenu = (requirement: Uni_Reqs) => {
+        setActiveMenuRequirement(requirement);
+    };
+
+    const closeMenu = () => {
+        setActiveMenuRequirement(null);
+    };
+
+    const markAsFulfilled = (requirement: Uni_Reqs) => {
+        const newFulfilledRequirements = new Set(fulfilledRequirements);
+        newFulfilledRequirements.add(requirement);
+        setFulfilledRequirements(newFulfilledRequirements);
+        closeMenu();
+    };
+
+    const markAsUnfulfilled = (requirement: Uni_Reqs) => {
+        const newFulfilledRequirements = new Set(fulfilledRequirements);
+        newFulfilledRequirements.delete(requirement);
+        setFulfilledRequirements(newFulfilledRequirements);
+        closeMenu();
+    };
+
     return (
         <div className="accordion">
-            {/* Accordion header */}
             <div className="sidepanel-header-container" onClick={toggleAccordion}>
-              <div className="requirement-header">{title}</div>
-              {isExpanded ? (
-                    <NavArrowDown className="icon" />
-                ) : (
-                    <NavArrowRight className="icon" />
-                )}
+                <div className="requirement-header">{title}</div>
+                {isExpanded ? <NavArrowDown className="icon" /> : <NavArrowRight className="icon" />}
             </div>
-
-            {/* Conditionally rendered accordion contents */}
-            {isExpanded && (
+            {isExpanded && requirements && (
                 <div className="accordion-contents">
-                    {Object.values(requirements).map((requirement, index) => {
-                        const isFulfilled = false; // TODO: Replace with `checkRequirementFulfilled` logic
-                        return (
-                            <div
-                                key={index}
-                                className={`accordion-item ${isFulfilled ? "fulfilled" : "pending"}`}
-                            >
-                                <div className={`icon ${isFulfilled ? "green" : ""}`}>
-                                    {isFulfilled && <Check />}
-                                </div>
-                                <p>{requirement}</p>
+                    {requirements.map((requirement, index) => (
+                        <div
+                            key={index}
+                            className={`accordion-item`}
+                            onMouseEnter={() => handleMouseEnter(requirement)}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <div className="item-start">
+                                {fulfilledRequirements.has(requirement) && <Check className="checkmark-icon" />}
+                                <p className="requirement-text">{requirement}</p>
                             </div>
-                        );
-                    })}
+                            <span
+                                className="ellipsis"
+                                onClick={() => openMenu(requirement)}
+                                style={{ visibility: hoveredRequirement === requirement && activeMenuRequirement !== requirement ? 'visible' : 'hidden' }}
+                            >
+                                •••
+                            </span>
+                            {activeMenuRequirement === requirement && (
+                                <div className="requirement-menu">
+                                    {fulfilledRequirements.has(requirement) ? (
+                                        <button onClick={() => markAsUnfulfilled(requirement)}>Mark as Unfulfilled</button>
+                                    ) : (
+                                        <button onClick={() => markAsFulfilled(requirement)}>Mark as Fulfilled</button>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                    {!requirements && <p>No requirements listed.</p>}
                 </div>
             )}
         </div>
