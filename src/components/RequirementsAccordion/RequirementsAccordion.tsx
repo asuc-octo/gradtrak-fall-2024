@@ -72,7 +72,7 @@ export default function RequirementsAccordion({ title, requirements }: Requireme
                                 onClick={() => openMenu(requirement)}
                                 style={{ visibility: hoveredRequirement === requirement && activeMenuRequirement !== requirement ? 'visible' : 'hidden' }}
                             >
-                                ...
+                                •••
                             </span>
                             {activeMenuRequirement === requirement && (
                                 <div className="requirement-menu">
