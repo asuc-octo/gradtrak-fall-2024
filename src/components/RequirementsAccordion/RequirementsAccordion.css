@@ -1,11 +1,33 @@
-
 .accordion {
-	display: flex;
-    padding: var(--S, 16px); 
+    display: flex;
+    padding: var(--S, 16px);
     gap: var(--XS, 8px);
-	flex-direction: column;
-	align-items: flex-start;
-	align-self: stretch;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+.sidepanel-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    cursor: pointer;
+}
+
+.requirement-header {
+    color: var(--Secondary-Text, #8A8A8A);
+    font-size: 0.75em;
+    font-weight: 580;
+    text-transform: uppercase;
+    flex-grow: 1;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    color: var(--Secondary-Text, #8A8A8A);
+    transition: transform 0.3s ease;
 }
 
 .accordion-contents {
@@ -14,24 +36,78 @@
     align-items: flex-start;
     gap: var(--XXS, 4px);
     transition: max-height 0.3s ease, opacity 0.3s ease;
-}  
+    padding-left: var(--S, 16px);
+}
 
 .accordion-item {
     display: flex;
-    align-items: flex-start;
-    gap: var(--XS, 8px);
+    align-items: center;
+    justify-content: space-between;
     align-self: stretch;
+    padding-right: var(--M, 24px);
+    position: relative; /* For positioning the menu */
 }
-  
-.icon {
-    width: 20px;
-    height: 20px;
+
+.item-start {
+    display: flex;
+    align-items: center;
+    gap: var(--XS, 8px);
+    padding-left: 1.2em; /* Reserve space for the checkmark */
+    position: relative;
+}
+
+.checkmark-icon {
+    color: var(--Green, #13B56B);
+    width: 1.2em;
+    height: 1.2em;
+    position: absolute;
+    left: 0;
+}
+
+.requirement-text {
+    font-size: 0.875em;
+    color: var(--Primary-Text, #333);
+    line-height: 1.3;
+    padding-left: 0.2em; /* Small adjustment for text alignment */
+}
+
+.ellipsis {
     color: var(--Secondary-Text, #8A8A8A);
-    transition: transform 0.3s ease;
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 0 6px;
+    align-self: center;
+    line-height: 1;
+    margin-left: auto; /* Push to the right */
 }
-.icon.expanded {
-    transform: rotate(0deg);
+
+.ellipsis:hover {
+    color: var(--Blue, #2F80ED);
 }
-.icon.collapsed {
-    transform: rotate(90deg);
+
+.requirement-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    border: 1px solid #EAEAEA;
+    border-radius: var(--XXS, 4px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    margin-top: var(--XXS, 4px);
+}
+
+.requirement-menu button {
+    padding: var(--XS, 12px);
+    font-size: 0.875em;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.requirement-menu button:hover {
+    background-color: #F3F4F9;
 }
